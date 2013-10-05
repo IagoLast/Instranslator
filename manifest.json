@@ -1,0 +1,21 @@
+{
+"name": "Instranslator",
+"description": "Provides a real time translate English-Spanish",
+"version": "1.0",
+"manifest_version": 2,
+"icons": {
+	"16": "icon128.png", 
+	"48": "icon128.png" ,
+	"128": "icon128.png" 
+	},
+"permissions": [
+    "tabs", "http://*/*", "https://*/*"
+  ],
+"content_scripts": [
+    {
+       "matches": ["http://*/*","https://*/*"],
+      "js": ["static/scripts/script.js"],
+      "run_at": "document_start"
+    }
+  ]
+}
