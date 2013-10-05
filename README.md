@@ -1,4 +1,4 @@
-Moodler
+Instranslator
 ===========
 
 This chrome extension allows you to translate text just selecting it.
