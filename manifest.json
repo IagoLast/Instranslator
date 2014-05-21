@@ -14,7 +14,7 @@
 "content_scripts": [
     {
        "matches": ["http://*/*","https://*/*"],
-      "js": ["static/scripts/instranslator-min.js"],
+      "js": ["static/scripts/instranslator.js"],
       "run_at": "document_start"
     }
   ]

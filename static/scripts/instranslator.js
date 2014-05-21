@@ -1,7 +1,8 @@
-var Instranslator = (function () {
+(function () {
     var disabled = true,
-        BASE_URL = "http://translate.google.com/translate_a/t?client=t&sl=en&tl=es&hl=en&sc=2&ie=UTF-8&oe=UTF-8&pc=1&oc=1&otf=1&ssel=0&q=";
-
+        BASE_URL = "http://translate.google.com/translate_a/t?client=t&sl=en&tl=es&hl=en&sc=2&ie=UTF-8&oe=UTF-8&pc=1&oc=1&otf=1&ssel=0&q=",
+        KEY_RIGHT = 39,
+        KEY_LEFT = 37;
 
     document.onmouseup = function () {
         var selectedText = getSelectedText();
@@ -13,20 +14,18 @@ var Instranslator = (function () {
         } else {
             document.getElementById("instranslator").remove();
         }
-    }
+    };
 
     /**
      * Sets a listener on a key combination to enable translation.
     */
     document.addEventListener('keydown', function (event) {
-        //shift + alt + arrow_left -> Translation enabled.
-        if (event.shiftKey && event.keyCode === 37) {
+        if (event.shiftKey && event.keyCode === KEY_LEFT) {
             disabled = false;
             plotDiv("translation Enabled");
             window.setTimeout(deleteDiv, 1000);
-        } 
-        // shift + alt + arrow_right -> Translation disabled.
-        else if (event.shiftKey && event.keyCode === 39) {
+        }
+        else if (event.shiftKey && event.keyCode === KEY_RIGHT) {
             disabled = true;
             plotDiv("translation Disabled");
             setTimeout(deleteDiv, 1000);
@@ -45,9 +44,9 @@ var Instranslator = (function () {
     
 
     function translate(words) {
-        var twoFields; //True when more than 2 words will be translated.
-        serverResponse = ajaxRequest(words);
+        var twoFields; //True when we got more than 2 words to translate.
         twoFields = words.split(" ").length < 2;
+        serverResponse = ajaxRequest(words);
         content = processText(serverResponse, twoFields);
         plotDiv(content);
     }
@@ -61,6 +60,9 @@ var Instranslator = (function () {
         return serverResponse;
     }
 
+    /**
+    *   Gets the translated text and apply regex to clean the output.
+    */
     function processText(response, twoFields) {
         var translation = "",
             word,
@@ -90,7 +92,6 @@ var Instranslator = (function () {
         var div,
             center,
             content;
-        
         deleteDiv();
         div = document.createElement("div");
         center = document.createElement("center");
@@ -100,7 +101,7 @@ var Instranslator = (function () {
         div.style.position = "fixed";
         div.style.background = "white";
         div.style.width = "100%";
-        div.style.zIndex = "1500";
+        div.style.zIndex = "9999";
         div.style.textTransform = "capitalize";
         div.style.padding = "5px";
         content = document.createTextNode(text);
